@@ -624,11 +624,6 @@
     window.location.reload();
   });
 
-  $('#creditos').innerHTML = C.atracoes.map(a =>
-    `<li>${a.nome}: <a href="${a.credito.url}" target="_blank" rel="noopener">${a.credito.autor}</a>, ${a.credito.licenca}</li>`).join('') +
-    `<li>Fotos do apartamento: anúncio no <a href="${C.airbnb}" target="_blank" rel="noopener">Airbnb</a></li>
-     <li>Mapa: dados do <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></li>`;
-
   /* Som */
   $('#som').addEventListener('click', () => {
     Som.acorda();

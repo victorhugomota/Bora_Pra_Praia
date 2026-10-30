@@ -719,15 +719,11 @@ h2 { font-size: clamp(1.8rem, 8vw, 2.3rem); }
 .cena-noite > .miolo { margin-block: auto; }
 #pedido { padding-bottom: 20vh; }
 .cena-noite .sobre, .cena-noite .apoio { color: #e9dcc9; }
-.cena-noite .link, .cena-noite summary, .cena-noite .creditos a { color: var(--noite); }
 .botao-aceito { max-width: 240px; min-height: 62px; font-size: 1.5rem; animation-name: surgir, pulsa !important; }
 .cena.ativa .botao-aceito { animation: surgir 1s var(--d) forwards, batida 2s calc(var(--d) + 1s) ease-in-out infinite; }
 @keyframes batida { 50% { box-shadow: 0 0 0 12px rgba(232, 105, 74, .2), 0 8px 20px rgba(127, 35, 23, .4); } }
 .escolhas { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; padding: 0; margin-top: 16px; }
 .escolhas li { padding: 3px 11px; border-radius: 20px; font-size: .84rem; color: var(--tinta); background: rgba(247, 237, 219, .9); }
-.creditos { margin-top: 18px; font-size: .78rem; text-align: left; }
-.creditos summary { text-align: center; cursor: pointer; }
-.creditos ul { margin-top: 8px; padding-left: 16px; max-height: 26vh; overflow-y: auto; }
 
 .cena-noite .apoio, .cena-noite .sobre { color: #efe3d0; }
 .cena-noite .link { color: var(--tinta); }
