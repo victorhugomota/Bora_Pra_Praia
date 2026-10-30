@@ -1,6 +1,6 @@
-// Som do mar sintetizado (não depende de arquivo) e efeitos curtos.
+// Música de fundo e efeitos curtos.
 window.Som = (() => {
-  let ac = null, mestre = null, audio = null, mudo = false, marLigado = false;
+  let ac = null, mestre = null, faixa = null, mudo = false, tocando = false;
 
   function acorda() {
     const AC = window.AudioContext || window.webkitAudioContext;
@@ -25,37 +25,26 @@ window.Som = (() => {
     return b;
   }
 
-  function mar(musica) {
-    if (!ac || marLigado) return;
-    marLigado = true;
-    const fonte = ac.createBufferSource();
-    fonte.buffer = ruido(7);
-    fonte.loop = true;
-    const filtro = ac.createBiquadFilter();
-    filtro.type = 'lowpass';
-    filtro.frequency.value = 620;
-    const ganho = ac.createGain();
-    ganho.gain.value = 0;
-    ganho.gain.linearRampToValueAtTime(0.42, ac.currentTime + 3);
-    const lfo = ac.createOscillator();
-    lfo.frequency.value = 0.11;
-    const prof = ac.createGain();
-    prof.gain.value = 0.2;
-    lfo.connect(prof).connect(ganho.gain);
-    const lfo2 = ac.createGain();
-    lfo2.gain.value = 240;
-    lfo.connect(lfo2).connect(filtro.frequency);
-    fonte.connect(filtro).connect(ganho).connect(mestre);
-    fonte.start();
-    lfo.start();
-
-    if (musica) {
-      audio = new Audio(musica);
-      audio.loop = true;
-      audio.volume = mudo ? 0 : 0.6;
-      audio.play().catch(() => {});
-    }
+  function prepara(src) {
+    if (!src) return;
+    faixa = new Audio(src);
+    faixa.loop = true;
+    faixa.preload = 'auto';
+    faixa.volume = 0.7;
   }
+
+  function musica() {
+    if (!faixa || tocando) return;
+    tocando = true;
+    faixa.muted = mudo;
+    faixa.play().catch(() => { tocando = false; });
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (!faixa || !tocando) return;
+    if (document.hidden) faixa.pause();
+    else faixa.play().catch(() => {});
+  });
 
   function nota(freq, atraso, dur, vol = 0.14, tipo = 'sine') {
     if (!ac) return;
@@ -93,11 +82,11 @@ window.Som = (() => {
   function alterna() {
     mudo = !mudo;
     if (mestre) mestre.gain.setTargetAtTime(mudo ? 0 : 1, ac.currentTime, 0.1);
-    if (audio) audio.volume = mudo ? 0 : 0.6;
+    if (faixa) faixa.muted = mudo;
     return mudo;
   }
 
-  return { acorda, mar, toque, erro, acerto, festa, estalo, alterna };
+  return { acorda, prepara, musica, toque, erro, acerto, festa, estalo, alterna };
 })();
 
 window.Festa = (() => {

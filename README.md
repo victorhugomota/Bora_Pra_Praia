@@ -6,7 +6,7 @@ nos 3 anos de casamento. É um site estático, pensado para abrir no celular.
 ## Como editar
 
 Datas, carta, legendas e atrações ficam em [`js/config.js`](js/config.js).
-Para tocar uma música junto com o mar, coloque o `.mp3` em `assets/` e preencha `musica`.
+A música de fundo é o arquivo `assets/musica.mp3`, definido no campo `musica`.
 
 ## Como testar
 
@@ -34,3 +34,4 @@ O site retoma de onde parou; o botão "Rever a surpresa", na última tela, limpa
 - Vila de Picinguaba: [HanazakiMiranda](https://commons.wikimedia.org/wiki/File:Vila_de_Picinguaba.jpg), CC BY-SA 4.0
 - Fotos do apartamento: [anúncio no Airbnb](https://www.airbnb.com.br/rooms/1304597302307094139)
 - Mapa: dados do [OpenStreetMap](https://www.openstreetmap.org/copyright)
+- Música: "Baby Yohan", de Michael Ramir C., [Mixkit](https://mixkit.co/free-stock-music/instrument/ukulele/)

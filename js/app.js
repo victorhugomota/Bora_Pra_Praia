@@ -199,7 +199,7 @@
     bloqueado = true;
     Som.acorda();
     Som.festa();
-    Som.mar(C.musica);
+    Som.musica();
     vibra([20, 40, 20]);
     const r = $('#bora').getBoundingClientRect();
     Festa.solta(r.left + r.width / 2, r.top, 40);
@@ -599,7 +599,7 @@
 
   $('#aceito').addEventListener('click', async () => {
     Som.acorda();
-    Som.mar(C.musica);
+    Som.musica();
     Som.festa();
     vibra([40, 60, 40, 60, 120]);
     Festa.chuva(9);
@@ -627,9 +627,11 @@
   /* Som */
   $('#som').addEventListener('click', () => {
     Som.acorda();
-    Som.mar(C.musica);
+    Som.musica();
     $('#som').classList.toggle('mudo', Som.alterna());
   });
+
+  Som.prepara(C.musica);
 
   /* Abertura: #cena abre direto em uma cena (útil para testar); senão retoma de onde parou */
   const pedida = location.hash.slice(1);
@@ -641,5 +643,5 @@
   if (inicio === 'areia') montaEtapa();
   mostra(inicio);
   if (inicio === 'aceito' && memoria.aceitou) telaFinal();
-  document.addEventListener('pointerdown', () => { Som.acorda(); if (ORDEM.indexOf(inicio) >= 2) Som.mar(C.musica); }, { once: true });
+  document.addEventListener('click', () => { Som.acorda(); if (ORDEM.indexOf(inicio) >= 2) Som.musica(); }, { once: true });
 })();

@@ -9,8 +9,8 @@ window.CONFIG = {
   ida: [2026, 11, 9],
   volta: [2026, 11, 12],
 
-  // Caminho de um .mp3 para tocar junto com o mar (ex.: 'assets/musica.mp3').
-  musica: '',
+  // Música de fundo, tocada em repetição depois do "Bora!".
+  musica: 'assets/musica.mp3',
 
   airbnb: 'https://www.airbnb.com.br/rooms/1304597302307094139',
 
