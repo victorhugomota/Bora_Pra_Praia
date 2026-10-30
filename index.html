@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Uma carta para a Maria Lívia</title>
+  <meta name="description" content="Chegou uma mensagem lacrada para você.">
+  <meta name="theme-color" content="#e6cf9f">
+  <meta name="robots" content="noindex, nofollow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Uma carta para a Maria Lívia">
+  <meta property="og:description" content="Chegou uma mensagem lacrada para você.">
+  <meta property="og:image" content="https://victorhugomota.github.io/Bora_Pra_Praia/assets/og.jpg">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23b23a2a'/%3E%3Cpath d='M16 24C6 16 9 9 13 9c1.700 0 3 1.300 3 3 0-1.700 1.300-3 3-3 4 0 7 7-3 15z' fill='%23f7eddb'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Courier+Prime:wght@400;700&family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <svg width="0" height="0" class="oculto" aria-hidden="true">
+    <symbol id="s-concha" viewBox="0 0 48 48">
+      <path d="M17 39h14l-2 6H19z" fill="#d99a7c"/>
+      <path d="M24 42C13 40 3 30 4 18 5 10 13 4 24 4s19 6 20 14c1 12-9 22-20 24z" fill="#fbe3d0" stroke="#c98a6c" stroke-width="1.500"/>
+      <path d="M24 41 12 9M24 41 18 6M24 41V5M24 41 30 6M24 41 36 9M24 41 6 16M24 41 42 16" stroke="#e2ae94" stroke-width="1.200" fill="none"/>
+    </symbol>
+    <symbol id="s-estrela" viewBox="0 0 48 48">
+      <path d="M24 5l6 13 14 1.500-10.500 9.500 3 14L24 36 11.500 43l3-14L4 19.500 18 18z" fill="#f2a06c" stroke="#d9794a" stroke-width="3" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="s-garrafa" viewBox="0 0 30 64">
+      <rect x="11" y="1" width="8" height="7" rx="1.500" fill="#b98a58"/>
+      <path d="M11 8h8v9c0 3 7 5 7 13v28a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V30c0-8 7-10 7-13z" fill="#bfe6dd" fill-opacity=".78" stroke="#5fa79c" stroke-width="1.500"/>
+      <rect x="9" y="30" width="12" height="20" rx="2" fill="#f7eddb" transform="rotate(8 15 40)"/>
+    </symbol>
+    <symbol id="s-veleiro" viewBox="0 0 28 24">
+      <path d="M13 1v15H3z" fill="#f7eddb"/><path d="M15 4v12h9z" fill="#e8694a"/><path d="M2 18h24l-4 5H6z" fill="#12394a"/>
+    </symbol>
+  </svg>
+
+  <div id="fundo"></div>
+  <canvas id="mar" aria-hidden="true"></canvas>
+
+  <div id="progresso" aria-hidden="true">
+    <div class="trilho"><svg class="barquinho"><use href="#s-veleiro"/></svg></div>
+  </div>
+  <button id="som" type="button" aria-label="Ligar ou desligar o som">
+    <svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path class="ondas" d="M16 8.500a5 5 0 0 1 0 7M18.500 6a8.500 8.500 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+
+  <main id="palco">
+
+    <!-- 1. Trava: a data do casamento escrita na areia -->
+    <section class="cena" data-cena="areia">
+      <div class="miolo">
+        <p class="sobre">Mensagem lacrada</p>
+        <h1>Isto aqui só abre para a Maria Lívia</h1>
+        <p class="apoio">Escreva na areia o dia em que a gente se casou.</p>
+        <div class="data-areia" aria-live="polite">
+          <span data-slot="dia">__</span><i>/</i><span data-slot="mes">__</span><i>/</i><span data-slot="ano">____</span>
+        </div>
+        <p id="pergunta" class="pergunta"></p>
+        <div id="grade" class="grade"></div>
+        <p id="recado" class="recado" role="status"></p>
+      </div>
+    </section>
+
+    <!-- 2. Envelope e convite -->
+    <section class="cena" data-cena="envelope">
+      <div class="miolo miolo-envelope">
+        <p class="sobre" id="env-titulo">Chegou uma carta para você</p>
+        <div class="envelope" id="envelope">
+          <div class="env-janela">
+            <div class="env-fundo"></div>
+            <article class="convite" id="convite">
+              <p class="sobre">Você está convidada</p>
+              <h2>Bora para<br>a Praia?</h2>
+              <p class="apoio">Três anos de casados pedem mais do que um jantar.</p>
+              <button type="button" class="botao" id="bora">Bora!</button>
+              <button type="button" class="fujao" id="fujao">Agora não</button>
+            </article>
+          </div>
+          <div class="env-frente">
+            <span class="env-para">Para a Maria Lívia</span>
+            <span class="env-carimbo">04 · 11 · 2023</span>
+          </div>
+          <div class="env-aba"></div>
+          <button type="button" class="lacre" id="lacre" aria-label="Romper o lacre">
+            <span class="metade esq"><b>M&amp;V</b></span>
+            <span class="metade dir"><b>M&amp;V</b></span>
+          </button>
+        </div>
+        <p class="apoio dica" id="env-dica">Toque no lacre</p>
+      </div>
+    </section>
+
+    <!-- 3. Os três anos -->
+    <section class="cena no-mar" data-cena="tempo">
+      <div class="miolo miolo-topo">
+        <p class="surge sobre" style="--d:.3s">4 de novembro de 2023</p>
+        <h2 class="surge titulo-grande" style="--d:1s">Você disse sim.</h2>
+        <p class="surge contador" style="--d:2.200s"><b id="dias">0</b> <span>dias de casados</span></p>
+        <p class="surge apoio" style="--d:4s">E eu queria comemorar de um jeito que a gente nunca mais esquecesse.</p>
+        <button type="button" class="surge botao" style="--d:5.200s" data-vai="raspadinha">Me conta</button>
+      </div>
+    </section>
+
+    <!-- 4. Raspadinha do destino -->
+    <section class="cena no-mar" data-cena="raspadinha">
+      <div class="miolo">
+        <h2 id="rasp-titulo">Para onde a gente vai?</h2>
+        <p class="apoio" id="rasp-apoio">Tem um lugar escondido embaixo da areia.</p>
+        <div class="rasp" id="rasp">
+          <img src="assets/apto/praia-arvore.jpg" alt="Baía de Ubatuba vista da praia">
+          <div class="rasp-nome"><strong>Ubatuba</strong><span>São Paulo</span></div>
+          <canvas id="rasp-areia" aria-label="Raspe com o dedo para revelar"></canvas>
+        </div>
+        <button type="button" class="botao" id="rasp-seguir" hidden data-vai="apto">Onde vamos ficar?</button>
+        <button type="button" class="link" id="rasp-pular" hidden>Revelar de uma vez</button>
+      </div>
+    </section>
+
+    <!-- 5. O apartamento -->
+    <section class="cena no-mar" data-cena="apto">
+      <div class="miolo">
+        <p class="sobre">Saco da Ribeira, Ubatuba</p>
+        <h2>Nosso cantinho</h2>
+        <ul class="selos" id="selos"></ul>
+      </div>
+      <div class="polaroids" id="polaroids"></div>
+      <div class="miolo miolo-fim">
+        <p class="apoio pequeno">Arraste as fotos para o lado</p>
+        <button type="button" class="botao" data-vai="embarque">E quando a gente vai?</button>
+        <a class="link" id="link-airbnb" target="_blank" rel="noopener">Ver o anúncio completo</a>
+      </div>
+    </section>
+
+    <!-- 6. Cartão de embarque -->
+    <section class="cena no-mar" data-cena="embarque">
+      <div class="miolo">
+        <div class="impressora"></div>
+        <div class="bilhete-corte"><div class="bilhete" id="bilhete">
+          <header>
+            <span>Cartão de embarque</span>
+            <span>Voo MV 003</span>
+          </header>
+          <div class="rota">
+            <div><small>De</small><strong>Casa</strong></div>
+            <svg class="rota-barco"><use href="#s-veleiro"/></svg>
+            <div><small>Para</small><strong>UBT</strong></div>
+          </div>
+          <dl>
+            <div><dt>Passageira</dt><dd id="b-ela"></dd></div>
+            <div><dt>Comandante</dt><dd id="b-ele"></dd></div>
+            <div><dt>Ida</dt><dd id="b-ida"></dd></div>
+            <div><dt>Volta</dt><dd id="b-volta"></dd></div>
+            <div><dt>Portão</dt><dd>Apto 306</dd></div>
+            <div><dt>Assento</dt><dd>Ao meu lado</dd></div>
+          </dl>
+          <div class="picote"></div>
+          <div class="canhoto">
+            <div class="barras" id="barras"></div>
+            <p>3 noites, uma para cada ano</p>
+          </div>
+        </div></div>
+        <p class="contagem" id="contagem"></p>
+        <button type="button" class="botao" data-vai="cartas">Agora você escolhe</button>
+        <a class="link" id="link-agenda" target="_blank" rel="noopener">Colocar na agenda</a>
+      </div>
+    </section>
+
+    <!-- 7. Cartas de atrações -->
+    <section class="cena no-mar cena-cartas" data-cena="cartas">
+      <header class="cartas-topo">
+        <h2>O que a gente vai fazer?</h2>
+        <p class="apoio">Arraste para a direita se quiser ir. <span id="cartas-conta"></span></p>
+      </header>
+      <div class="baralho" id="baralho"></div>
+      <div class="cartas-botoes">
+        <button type="button" class="redondo nao" id="b-nao" aria-label="Fica para a próxima">
+          <svg viewBox="0 0 24 24" width="24" height="24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+        </button>
+        <button type="button" class="redondo sim" id="b-sim" aria-label="Bora">
+          <svg viewBox="0 0 24 24" width="28" height="28"><path d="M12 21C2 13 4 5 9 5c1.500 0 3 1 3 3 0-2 1.500-3 3-3 5 0 7 8-3 16z" fill="currentColor"/></svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- 8. Mapa com as escolhas -->
+    <section class="cena no-mar cena-mapa" data-cena="mapa">
+      <header class="mapa-topo">
+        <h2>O nosso mapa</h2>
+        <p class="apoio" id="mapa-resumo"></p>
+      </header>
+      <div class="mapa-caixa">
+        <svg id="mapa" role="img" aria-label="Mapa de Ubatuba com os lugares escolhidos"></svg>
+        <div class="rosa" aria-hidden="true"><span>N</span></div>
+        <div class="mapa-vistas">
+          <button type="button" data-vista="toda" class="ativa">Ubatuba toda</button>
+          <button type="button" data-vista="perto">Perto do apê</button>
+        </div>
+      </div>
+      <div class="roteiro" id="roteiro"></div>
+      <button type="button" class="botao" data-vai="carta">Tem mais uma coisa</button>
+    </section>
+
+    <!-- 9. A carta -->
+    <section class="cena no-mar" data-cena="carta">
+      <div class="miolo">
+        <article class="folha" id="folha"></article>
+        <button type="button" class="botao" id="carta-seguir" hidden data-vai="aceito">Então pergunta</button>
+      </div>
+    </section>
+
+    <!-- 10. O novo sim -->
+    <section class="cena no-mar cena-noite" data-cena="aceito">
+      <div class="miolo" id="pedido">
+        <p class="surge sobre" style="--d:.8s">Maria Lívia,</p>
+        <h2 class="surge titulo-grande" style="--d:1.800s">você aceita passar três noites em Ubatuba comigo?</h2>
+        <button type="button" class="surge botao botao-aceito" style="--d:3.400s" id="aceito">Aceito</button>
+      </div>
+      <div class="miolo" id="fim" hidden>
+        <h2 class="titulo-grande">Eu sabia.</h2>
+        <p class="apoio">Dia 9 de novembro, mala pronta. Eu cuido do resto.</p>
+        <ul class="escolhas" id="escolhas"></ul>
+        <button type="button" class="botao" id="contar">Contar para o Victor</button>
+        <button type="button" class="link" id="rever">Rever a surpresa</button>
+        <details class="creditos">
+          <summary>Créditos das fotos e do mapa</summary>
+          <ul id="creditos"></ul>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <canvas id="festa" aria-hidden="true"></canvas>
+
+  <script src="js/config.js"></script>
+  <script src="js/mapa-dados.js"></script>
+  <script src="js/mar.js"></script>
+  <script src="js/efeitos.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
